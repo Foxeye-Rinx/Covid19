@@ -9,7 +9,7 @@ import MenuItem from '@mui/material/MenuItem';
 import Divider from '@mui/material/Divider';
 import { DateTime } from 'luxon';
 import covidStats from './covid-stats';
-
+import Map from './Map';
 const formatDate = date => {
   if (!date) {
     return ''
@@ -102,6 +102,7 @@ export default function AddressForm() {
     setRegion(event.target.value);
   };
   const regionData = getRegionData(covidStats, country, region);
+  const showMap = regionData?.lat && regionData?.long;
   return (
     <React.Fragment>
       <Grid container spacing={3}>
@@ -275,6 +276,7 @@ export default function AddressForm() {
           />
         </Grid>
       </Grid>
+      {showMap && <Map lat={regionData.lat} long={regionData.long} />}
     </React.Fragment>
   );
 }
